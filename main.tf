@@ -158,10 +158,10 @@ resource "google_compute_instance" "k8s-04" {
 
 resource "null_resource" "hosts" {
  triggers = {
-   anything1 = google_compute_instance.k8s-01.network_interface.0.access_config.0.nat_ip
-   anything2 = google_compute_instance.k8s-02.network_interface.0.access_config.0.nat_ip
-   anything3 = google_compute_instance.k8s-03.network_interface.0.access_config.0.nat_ip
-   anything4 = google_compute_instance.k8s-04.network_interface.0.access_config.0.nat_ip
+   id1 = google_compute_instance.k8s-01.instance_id 
+   id2 = google_compute_instance.k8s-02.instance_id 
+   id3 = google_compute_instance.k8s-03.instance_id 
+   id4 = google_compute_instance.k8s-04.instance_id 
  }
  provisioner "remote-exec" {
    connection {
