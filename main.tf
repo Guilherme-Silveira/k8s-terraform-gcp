@@ -167,7 +167,7 @@ resource "null_resource" "hosts" {
    connection {
      type = "ssh"
      user = "silveira"
-     host = "35.193.104.34"
+     host = "35.184.8.109"
    }
    inline = [
      "cd /home/silveira/k8s-terraform-gcp/ansible",
