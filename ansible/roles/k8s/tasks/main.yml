@@ -1,0 +1,101 @@
+---
+# tasks file for k8s
+- name: disable SELinux
+  command: setenforce 0
+
+- name: disable SELinux on reboot
+  selinux:
+    state: disabled
+
+- name: disable swappiness
+  command: swapoff -a
+
+- name: sysctl swappiness
+  sysctl:
+    name: vm.swappiness
+    value: 1
+    reload: yes
+    state: present
+    sysctl_set: yes 
+    sysctl_file: /etc/sysctl.conf
+
+- name: Install yum utils
+  yum:
+    name: yum-utils
+    state: latest
+
+- name: Install device-mapper-persistent-data
+  yum:
+    name: device-mapper-persistent-data
+    state: latest
+
+- name: Install lvm2
+  yum:
+    name: lvm2
+    state: latest
+
+- name: Add Docker repo
+  get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
+  become: yes
+
+- name: Enable Docker Edge repo
+  ini_file:
+    dest: /etc/yum.repos.d/docker-ce.repo
+    section: 'docker-ce-edge'
+    option: enabled
+    value: 0
+  become: yes
+
+- name: Enable Docker Test repo
+  ini_file:
+    dest: /etc/yum.repos.d/docker-ce.repo
+    section: 'docker-ce-test'
+    option: enabled
+    value: 0
+  become: yes
+
+- name: Install Docker
+  package:
+    name: docker-ce
+    state: latest
+  become: yes
+
+- name: Start Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  become: yes
+
+- name: add Kubernetes' YUM repository
+  yum_repository:
+    name: Kubernetes
+    description: Kubernetes YUM repository
+    baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+    gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+    gpgcheck: yes
+
+- name: install kubelet
+  yum:
+    name: kubelet-1.14.0
+    state: present
+    update_cache: true
+
+- name: install kubeadm
+  yum:
+    name: kubeadm-1.14.0
+    state: present
+
+- name: start kubelet
+  service:
+    name: kubelet
+    enabled: yes
+    state: started
+
+- name: install kubectl
+  yum:
+    name: kubectl-1.14.0
+    state: present
+    allow_downgrade: yes
