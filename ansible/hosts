@@ -1,10 +1,10 @@
 [masters]
-10.150.0.10 
+master ansible_host=10.150.0.10 
 
 [workers]
-10.150.0.11
-10.150.0.12
-10.150.0.13
+worker1 ansible_host=10.150.0.11
+worker2 ansible_host=10.150.0.12
+worker3 ansible_host=10.150.0.13
 
 [all:vars]
 ansible_user=silveira
