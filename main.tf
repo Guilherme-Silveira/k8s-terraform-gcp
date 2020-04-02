@@ -158,24 +158,61 @@ resource "google_compute_instance" "k8s-04" {
 
 resource "null_resource" "hosts" {
  triggers = {
-   public_ip1 = google_compute_instance.k8s-01.network_interface.0.access_config.0.nat_ip
-   public_ip2 = google_compute_instance.k8s-02.network_interface.0.access_config.0.nat_ip
-   public_ip3 = google_compute_instance.k8s-03.network_interface.0.access_config.0.nat_ip
-   public_ip4 = google_compute_instance.k8s-04.network_interface.0.access_config.0.nat_ip
-   id1 = google_compute_instance.k8s-01.instance_id 
-   id2 = google_compute_instance.k8s-02.instance_id 
-   id3 = google_compute_instance.k8s-03.instance_id 
-   id4 = google_compute_instance.k8s-04.instance_id
-   ip1 = google_compute_instance.k8s-01.network_interface.0.network_ip
-   ip2 = google_compute_instance.k8s-02.network_interface.0.network_ip
-   ip3 = google_compute_instance.k8s-03.network_interface.0.network_ip
-   ip4 = google_compute_instance.k8s-04.network_interface.0.network_ip
+   public_ip1  = google_compute_instance.k8s-01.network_interface.0.access_config.0.nat_ip
+   public_ip2  = google_compute_instance.k8s-02.network_interface.0.access_config.0.nat_ip
+   public_ip3  = google_compute_instance.k8s-03.network_interface.0.access_config.0.nat_ip
+   public_ip4  = google_compute_instance.k8s-04.network_interface.0.access_config.0.nat_ip
  }
+
  provisioner "remote-exec" {
    connection {
      type = "ssh"
      user = "silveira"
-     host = "35.184.8.109"
+     host = google_compute_instance.k8s-01.network_interface.0.access_config.0.nat_ip
+   }
+   inline = [
+     "echo OK"
+   ]
+ }
+
+ provisioner "remote-exec" {
+   connection {
+     type = "ssh"
+     user = "silveira"
+     host = google_compute_instance.k8s-02.network_interface.0.access_config.0.nat_ip
+   }
+   inline = [
+     "echo OK"
+   ]
+ }
+
+ provisioner "remote-exec" {
+   connection {
+     type = "ssh"
+     user = "silveira"
+     host = google_compute_instance.k8s-03.network_interface.0.access_config.0.nat_ip
+   }
+   inline = [
+     "echo OK"
+   ]
+ }
+
+ provisioner "remote-exec" {
+   connection {
+     type = "ssh"
+     user = "silveira"
+     host = google_compute_instance.k8s-04.network_interface.0.access_config.0.nat_ip
+   }
+   inline = [
+     "echo OK"
+   ]
+ }
+
+ provisioner "remote-exec" {
+   connection {
+     type = "ssh"
+     user = "silveira"
+     host = "34.69.172.1"
    }
    inline = [
      "cd /home/silveira/k8s-terraform-gcp/ansible",
