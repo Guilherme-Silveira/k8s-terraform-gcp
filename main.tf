@@ -48,6 +48,10 @@ variable "ssh_key" {
  type = string
 }
 
+variable "bastion_ip" {
+  type = string
+}
+
 resource "google_compute_instance" "k8s-01" {
  name         = var.instance1
  machine_type = "n1-standard-4"
@@ -212,7 +216,7 @@ resource "null_resource" "hosts" {
    connection {
      type = "ssh"
      user = "silveira"
-     host = "34.69.172.1"
+     host = var.bastion_ip
    }
    inline = [
      "cd /home/silveira/k8s-terraform-gcp/ansible",
