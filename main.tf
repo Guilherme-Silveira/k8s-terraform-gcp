@@ -52,6 +52,10 @@ variable "bastion_ip" {
   type = string
 }
 
+variable "private_key" {
+ type = string
+}
+
 resource "google_compute_instance" "k8s-01" {
  name         = var.instance1
  machine_type = "n1-standard-4"
@@ -173,6 +177,7 @@ resource "null_resource" "hosts" {
      type = "ssh"
      user = "silveira"
      host = google_compute_instance.k8s-01.network_interface.0.access_config.0.nat_ip
+     private_key = file(var.private_key)
    }
    inline = [
      "echo OK"
@@ -184,6 +189,7 @@ resource "null_resource" "hosts" {
      type = "ssh"
      user = "silveira"
      host = google_compute_instance.k8s-02.network_interface.0.access_config.0.nat_ip
+     private_key = file(var.private_key)
    }
    inline = [
      "echo OK"
@@ -195,6 +201,7 @@ resource "null_resource" "hosts" {
      type = "ssh"
      user = "silveira"
      host = google_compute_instance.k8s-03.network_interface.0.access_config.0.nat_ip
+     private_key = file(var.private_key)
    }
    inline = [
      "echo OK"
@@ -206,6 +213,7 @@ resource "null_resource" "hosts" {
      type = "ssh"
      user = "silveira"
      host = google_compute_instance.k8s-04.network_interface.0.access_config.0.nat_ip
+     private_key = file(var.private_key)
    }
    inline = [
      "echo OK"
@@ -217,6 +225,7 @@ resource "null_resource" "hosts" {
      type = "ssh"
      user = "silveira"
      host = var.bastion_ip
+     private_key = file(var.private_key)
    }
    inline = [
      "cd /home/silveira/k8s-terraform-gcp/ansible",
