@@ -58,7 +58,7 @@ variable "private_key" {
 
 resource "google_compute_instance" "k8s-01" {
  name         = var.instance1
- machine_type = "n1-standard-4"
+ machine_type = "n1-standard-2"
  zone         = "${var.zone}-a"
  hostname     = "${var.instance1}.srv"
 
@@ -85,7 +85,7 @@ resource "google_compute_instance" "k8s-01" {
 
 resource "google_compute_instance" "k8s-02" {
  name         = var.instance2
- machine_type = "n1-standard-4"
+ machine_type = "n1-standard-2"
  zone         = "${var.zone}-a"
  hostname     = "${var.instance2}.srv"
 
@@ -112,7 +112,7 @@ resource "google_compute_instance" "k8s-02" {
 
 resource "google_compute_instance" "k8s-03" {
  name         = var.instance3
- machine_type = "n1-standard-4"
+ machine_type = "n1-standard-2"
  zone         = "${var.zone}-a"
  hostname     = "${var.instance3}.srv"
 
@@ -139,7 +139,7 @@ resource "google_compute_instance" "k8s-03" {
 
 resource "google_compute_instance" "k8s-04" {
  name         = var.instance4
- machine_type = "n1-standard-4"
+ machine_type = "n1-standard-2"
  zone         = "${var.zone}-a"
  hostname     = "${var.instance4}.srv"
 
