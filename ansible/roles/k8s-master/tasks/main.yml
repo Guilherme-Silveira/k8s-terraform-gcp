@@ -8,7 +8,7 @@
 
 - name: create .kube directory
   become: yes
-  become_user: silveira
+  become_user: {{ ansible_user }}
   file:
     path: $HOME/.kube
     state: directory
@@ -17,13 +17,13 @@
 - name: copy admin.conf to user's kube config
   copy:
     src: /etc/kubernetes/admin.conf
-    dest: /home/silveira/.kube/config
+    dest: /home/{{ ansible_user }}/.kube/config
     remote_src: yes
-    owner: silveira
+    owner: {{ ansible_user }}
 
 - name: install Pod network
   become: yes
-  become_user: silveira
+  become_user: {{ ansible_user }}
   shell: kubectl apply -f https://docs.projectcalico.org/v3.9/manifests/calico.yaml >> pod_network_setup.txt
   args:
     chdir: $HOME
