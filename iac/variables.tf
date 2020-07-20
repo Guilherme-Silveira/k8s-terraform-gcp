@@ -121,3 +121,7 @@ variable "user" {
 variable "private_key" {
  type = string
 }
+
+variable "network" {
+ type = string
+}

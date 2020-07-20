@@ -12,7 +12,7 @@ resource "google_compute_instance" "k8s-01" {
  }
 
  network_interface {
-   network    = "default"
+   network    = var.network
    network_ip = var.ip1
    access_config {}
  }
@@ -37,7 +37,7 @@ resource "google_compute_instance" "k8s-02" {
  }
 
  network_interface {
-   network    = "default"
+   network    = var.network
    network_ip = var.ip2
    access_config {}
  }
@@ -62,7 +62,7 @@ resource "google_compute_instance" "k8s-03" {
  }
 
  network_interface {
-   network    = "default"
+   network    = var.network
    network_ip = var.ip3
    access_config {}
  }
@@ -87,7 +87,7 @@ resource "google_compute_instance" "k8s-04" {
  }
 
  network_interface {
-   network    = "default"
+   network    = var.network
    network_ip = var.ip4
    access_config {}
  }
