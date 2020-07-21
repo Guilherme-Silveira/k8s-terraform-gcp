@@ -62,7 +62,7 @@ resource "null_resource" "hosts" {
      private_key = file(var.bastion_private_key)
    }
    inline = [
-     "cd /home/silveira/k8s-terraform-gcp/ansible",
+     "cd ${var.ansible_home}",
      "cat << EOF > hosts",
      "[masters]",
      "master ansible_host=${var.ip1} hostname=${var.hostname1} host=${var.instance1}",
